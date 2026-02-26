@@ -1,0 +1,2 @@
+web: node dist/main.js
+release: node -e "const{execSync}=require('child_process');execSync('npx typeorm migration:run -d dist/config/data-source.js',{stdio:'inherit'})"
