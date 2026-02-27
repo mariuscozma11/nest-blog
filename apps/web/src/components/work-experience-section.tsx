@@ -45,7 +45,7 @@ const workExperiences: WorkExperience[] = [
   },
   {
     title: "Full-Stack Developer",
-    period: "Aug 2024 – present",
+    period: "Mar 2025 – present",
     company: "Lagrange Engineering SRL",
     description:
       "Lagrange Engineering is a Romanian company which I have founded. It specializes in custom Web Development and as a full-stack developer I'm responsible for:",
@@ -86,7 +86,7 @@ const workExperiences: WorkExperience[] = [
   },
   {
     title: "Freelance Web Developer",
-    period: "Feb 2023 – Aug 2024",
+    period: "Feb 2023 – Mar 2025",
     company: "Self-Employed",
     description:
       "Worked as a freelance web developer, creating websites for small businesses and individuals. Built responsive landing pages, corporate websites, and portfolio sites using React, Next.js, and TailwindCSS. Focused on SEO optimization, performance, and clean design.",
