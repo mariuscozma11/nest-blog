@@ -21,10 +21,10 @@ const Navbar = () => {
       label: "Home",
       href: "/",
     },
-    {
-      label: "Blog",
-      href: "/blog",
-    },
+    // {
+    //   label: "Blog",
+    //   href: "/blog",
+    // },
     {
       label: "Contact",
       href: "/contact",
