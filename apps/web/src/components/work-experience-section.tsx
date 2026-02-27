@@ -18,7 +18,7 @@ const workExperiences: WorkExperience[] = [
     project: "Exa Gym 2 - Multi-Tenant Gym Platform",
     projectUrl: "https://exahealth.ro",
     description:
-      "Collaborating with an associate to develop a multi-tenant gym management platform, expanding the original Exa Gym app to support multiple gym franchises.",
+      "Subcontracted to develop a multi-tenant gym management platform alongside other developers, expanding the original Exa Gym app to support multiple gym franchises.",
     responsibilities: [
       "Developing multi-tenant database schema with tenant isolation in PostgreSQL",
       "Building franchise admin dashboard for managing multiple gym locations",
@@ -33,7 +33,7 @@ const workExperiences: WorkExperience[] = [
     project: "MEDIS - Medical Conference App",
     projectUrl: "https://medistm.ro",
     description:
-      "Collaborated with an associate to develop a medical conference application. Sold over 300 tickets under a minute.",
+      "Subcontracted to develop a medical conference application alongside other developers. Sold over 300 tickets under a minute.",
     responsibilities: [
       "Created landing page website with public details about the event",
       "Built ticket purchase flow with EuPlatesc payment integration",
@@ -63,7 +63,7 @@ const workExperiences: WorkExperience[] = [
     project: "Nuvio - Salon Management App",
     projectUrl: "https://nuvio.ro",
     description:
-      "Collaborated with an associate to develop features for a scheduling and client management app for barbershops, clinics, and service businesses. 1k+ MAU.",
+      "Subcontracted to develop features for a scheduling and client management app for barbershops, clinics, and service businesses, working alongside other developers. 1k+ MAU.",
     responsibilities: [
       "Built booking management interface with Next.js and TailwindCSS",
       "Implemented real-time calendar with drag-and-drop scheduling",
@@ -77,7 +77,7 @@ const workExperiences: WorkExperience[] = [
     project: "Exa Gym - Gym Management App",
     projectUrl: "https://exahealth.ro",
     description:
-      "Collaborated with an associate to develop a gym membership mobile app for Gym One, a franchise in Timisoara. 10k+ MAU.",
+      "Subcontracted to develop a gym membership mobile app for Gym One, a franchise in Timisoara, working alongside other developers. 10k+ MAU.",
     responsibilities: [
       "Built user dashboard and membership tracking screens in React Native",
       "Implemented QR check-in flow for gym entry",
