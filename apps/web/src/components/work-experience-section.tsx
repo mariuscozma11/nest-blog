@@ -86,7 +86,7 @@ const workExperiences: WorkExperience[] = [
   },
   {
     title: "Freelance Web Developer",
-    period: "Feb 2023 – Sep 2023",
+    period: "Feb 2023 – Aug 2024",
     company: "Self-Employed",
     description:
       "Worked as a freelance web developer, creating websites for small businesses and individuals. Built responsive landing pages, corporate websites, and portfolio sites using React, Next.js, and TailwindCSS. Focused on SEO optimization, performance, and clean design.",
