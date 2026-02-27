@@ -75,7 +75,6 @@ const workExperiences: WorkExperience[] = [
     period: "Oct 2023 – Feb 2024",
     company: "Gym One (via Dot Koda Dev)",
     project: "Exa Gym - Gym Management App",
-    projectUrl: "https://exahealth.ro",
     description:
       "Subcontracted to develop a gym membership mobile app for Gym One, a franchise in Timisoara, working alongside other developers. 10k+ MAU.",
     responsibilities: [

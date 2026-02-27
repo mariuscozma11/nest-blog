@@ -78,7 +78,6 @@ const mockProjects: Project[] = [
     status: "finished",
     tags: ["10k+ MAU"],
     techBadges: ["React Native", "NestJS", "TypeScript"],
-    live: "https://exahealth.ro/",
   },
   {
     id: 5,
