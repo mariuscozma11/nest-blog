@@ -45,19 +45,6 @@ const workExperiences: WorkExperience[] = [
   },
   {
     title: "Full-Stack Developer",
-    period: "Mar 2025 – present",
-    company: "Lagrange Engineering SRL",
-    description:
-      "Lagrange Engineering is a Romanian company which I have founded. It specializes in custom Web Development and as a full-stack developer I'm responsible for:",
-    responsibilities: [
-      "Design and implement user interfaces using React and Next.js, integrating APIs with a strong focus on usability and client requirements.",
-      "Design and develop web application servers and APIs using Node.js, NestJS, and both SQL and NoSQL databases.",
-      "Develop and maintain automated tests to ensure high code quality, reliability, and long-term maintainability.",
-      "Build and maintain CI/CD pipelines using GitHub Actions and Docker, deploying to AWS, Railway, and Vercel.",
-    ],
-  },
-  {
-    title: "Full-Stack Developer",
     period: "Mar 2024 – Jul 2024",
     company: "Dot Koda Dev",
     project: "Nuvio - Salon Management App",
@@ -82,6 +69,19 @@ const workExperiences: WorkExperience[] = [
       "Implemented QR check-in flow for gym entry",
       "Designed RESTful API endpoints for membership management using NestJS",
       "Helped design database schema for users and subscriptions in PostgreSQL",
+    ],
+  },
+  {
+    title: "Full-Stack Developer",
+    period: "Mar 2025 – present",
+    company: "Lagrange Engineering SRL",
+    description:
+      "Lagrange Engineering is a Romanian company which I have founded. It specializes in custom Web Development and as a full-stack developer I'm responsible for:",
+    responsibilities: [
+      "Design and implement user interfaces using React and Next.js, integrating APIs with a strong focus on usability and client requirements.",
+      "Design and develop web application servers and APIs using Node.js, NestJS, and both SQL and NoSQL databases.",
+      "Develop and maintain automated tests to ensure high code quality, reliability, and long-term maintainability.",
+      "Build and maintain CI/CD pipelines using GitHub Actions and Docker, deploying to AWS, Railway, and Vercel.",
     ],
   },
   {
