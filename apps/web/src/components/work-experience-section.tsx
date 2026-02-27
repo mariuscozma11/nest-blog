@@ -4,6 +4,8 @@ interface WorkExperience {
   title: string;
   period: string;
   company: string;
+  project?: string;
+  projectUrl?: string;
   description: string;
   responsibilities: string[];
 }
@@ -11,7 +13,39 @@ interface WorkExperience {
 const workExperiences: WorkExperience[] = [
   {
     title: "Full-Stack Developer",
-    period: "Feb 2025 – present",
+    period: "Jan 2026 – present",
+    company: "Exa Health (via Lagrange Engineering)",
+    project: "Exa Gym 2 - Multi-Tenant Gym Platform",
+    projectUrl: "https://exahealth.ro",
+    description:
+      "Collaborating with an associate to develop a multi-tenant gym management platform, expanding the original Exa Gym app to support multiple gym franchises.",
+    responsibilities: [
+      "Developing multi-tenant database schema with tenant isolation in PostgreSQL",
+      "Building franchise admin dashboard for managing multiple gym locations",
+      "Implementing white-label mobile app configuration per tenant",
+      "Developing scalable API infrastructure with NestJS to handle 50k+ MAU",
+    ],
+  },
+  {
+    title: "Full-Stack Developer",
+    period: "Aug 2025 – present",
+    company: "MEDIS Conference (via Lagrange Engineering)",
+    project: "MEDIS - Medical Conference App",
+    projectUrl: "https://medistm.ro",
+    description:
+      "Collaborated with an associate to develop a medical conference application. Sold over 300 tickets under a minute.",
+    responsibilities: [
+      "Created landing page website with public details about the event",
+      "Built ticket purchase flow with EuPlatesc payment integration",
+      "Designed workshop selection interface with real-time availability",
+      "Created user registration and dashboard with Next.js and shadcn/ui",
+      "Implemented backend API for ticket validation and attendee management",
+      "Built QR code scanning system for event check-in",
+    ],
+  },
+  {
+    title: "Full-Stack Developer",
+    period: "Aug 2024 – present",
     company: "Lagrange Engineering SRL",
     description:
       "Lagrange Engineering is a Romanian company which I have founded. It specializes in custom Web Development and as a full-stack developer I'm responsible for:",
@@ -23,19 +57,40 @@ const workExperiences: WorkExperience[] = [
     ],
   },
   {
+    title: "Full-Stack Developer",
+    period: "Mar 2024 – Jul 2024",
+    company: "Dot Koda Dev",
+    project: "Nuvio - Salon Management App",
+    projectUrl: "https://nuvio.ro",
+    description:
+      "Collaborated with an associate to develop features for a scheduling and client management app for barbershops, clinics, and service businesses. 1k+ MAU.",
+    responsibilities: [
+      "Built booking management interface with Next.js and TailwindCSS",
+      "Implemented real-time calendar with drag-and-drop scheduling",
+      "Created Supabase edge functions for appointment logic and notifications",
+    ],
+  },
+  {
+    title: "Full-Stack Developer",
+    period: "Oct 2023 – Feb 2024",
+    company: "Gym One (via Dot Koda Dev)",
+    project: "Exa Gym - Gym Management App",
+    projectUrl: "https://exahealth.ro",
+    description:
+      "Collaborated with an associate to develop a gym membership mobile app for Gym One, a franchise in Timisoara. 10k+ MAU.",
+    responsibilities: [
+      "Built user dashboard and membership tracking screens in React Native",
+      "Implemented QR check-in flow for gym entry",
+      "Designed RESTful API endpoints for membership management using NestJS",
+      "Helped design database schema for users and subscriptions in PostgreSQL",
+    ],
+  },
+  {
     title: "Freelance Web Developer",
-    period: "Jan 2024 – Feb 2025",
+    period: "Feb 2023 – Sep 2023",
     company: "Self-Employed",
     description:
       "Worked as a freelance web developer, building front-end focused websites and web applications using React, Next.js, and TypeScript. Used serverless backend solutions such as Supabase and Firebase for authentication, data storage, and real-time functionality. Projects from this period are available at lagrangeengineering.ro/portfolio",
-    responsibilities: [],
-  },
-  {
-    title: "Industrial Automation Engineer",
-    period: "Sep 2022 – Feb 2024",
-    company: "TPS Industry SRL, Atlantis Project SRL",
-    description:
-      "Before transitioning into Tech, I worked as an Industrial Automation Engineer after majoring in Industrial Engineering. I held this role at Trocprim Serv SRL and Atlantis Project SRL, designing and implementing industrial process automation equipment, creating 3D pneumatic and electrical system designs, and programming PLCs and industrial robots.",
     responsibilities: [],
   },
 ];
@@ -53,16 +108,6 @@ const WorkExperienceSection = () => {
         <div className="space-y-8">
           {workExperiences.map((experience, index) => (
             <div key={index}>
-              {/* Past career divider before the last item */}
-              {index === 2 && (
-                <div className="mb-8 flex items-center gap-4">
-                  <div className="flex-1 border-t border-dashed" />
-                  <span className="text-muted-foreground font-mono text-sm">
-                    My past career
-                  </span>
-                  <div className="flex-1 border-t border-dashed" />
-                </div>
-              )}
 
               <div className="border rounded-lg p-6 hover:border-primary/50 transition-colors">
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-4">
@@ -73,6 +118,22 @@ const WorkExperienceSection = () => {
                     <p className="text-primary font-mono text-sm">
                       {experience.company}
                     </p>
+                    {experience.project && (
+                      <p className="text-muted-foreground font-mono text-sm mt-1">
+                        {experience.projectUrl ? (
+                          <a
+                            href={experience.projectUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-primary transition-colors"
+                          >
+                            {experience.project} →
+                          </a>
+                        ) : (
+                          experience.project
+                        )}
+                      </p>
+                    )}
                   </div>
                   <span className="text-muted-foreground font-mono text-sm whitespace-nowrap">
                     {experience.period}

@@ -34,6 +34,18 @@ interface Project {
 const mockProjects: Project[] = [
   {
     id: 1,
+    image: "/exa.jpeg",
+    title: "Exa Gym 2",
+    description: "Multi-tenant gym management platform supporting multiple franchises. 50k+ MAU target.",
+    fullDescription: "Collaborating with an associate to develop a multi-tenant gym management platform, expanding the original Exa Gym app to support multiple gym franchises. Developing multi-tenant database schema with tenant isolation in PostgreSQL, building franchise admin dashboard for managing multiple gym locations, implementing white-label mobile app configuration per tenant, and developing scalable API infrastructure with NestJS to handle 50k+ MAU.",
+    technologies: ["TypeScript", "React Native", "NestJS", "PostgreSQL", "Multi-tenant Architecture"],
+    status: "in-dev",
+    tags: ["50k+ MAU target", "Multi-tenant"],
+    techBadges: ["React Native", "NestJS", "TypeScript"],
+    live: "https://exahealth.ro/",
+  },
+  {
+    id: 2,
     image: "/medis.png",
     title: "MEDIS",
     description: "Medical conference app with ticket sales, workshop allocation, and QR code presence tracking. Sold over 300 tickets under a minute.",
@@ -45,7 +57,7 @@ const mockProjects: Project[] = [
     live: "https://medistm.ro",
   },
   {
-    id: 2,
+    id: 3,
     image: "/nuvio.png",
     title: "Nuvio",
     description: "Scheduling app for barbershops, clinics, and service businesses. 1k+ MAU.",
@@ -57,7 +69,7 @@ const mockProjects: Project[] = [
     live: "https://nuvio.ro",
   },
   {
-    id: 3,
+    id: 4,
     image: "/exa.jpeg",
     title: "Exa Gym",
     description: "Gym membership mobile app for the Gym One franchise. 10k+ MAU.",
@@ -69,7 +81,7 @@ const mockProjects: Project[] = [
     live: "https://exahealth.ro/",
   },
   {
-    id: 4,
+    id: 5,
     image: "/novaworks.png",
     title: "NovaWorks",
     description: "Ecommerce platform for a 3D printing business with custom 3D file quotation.",
@@ -80,7 +92,7 @@ const mockProjects: Project[] = [
     live: "https://novaworks.ro/",
   },
   {
-    id: 5,
+    id: 6,
     image: "/lagrange.png",
     title: "Lagrange Engineering",
     description: "Corporate website for my freelance web development company.",
@@ -91,7 +103,7 @@ const mockProjects: Project[] = [
     live: "https://www.lagrangeengineering.ro/ro",
   },
   {
-    id: 6,
+    id: 7,
     image: "/corox.png",
     title: "Corox Engineering",
     description: "Corporate website for an industrial automation and machine safety company.",
@@ -102,7 +114,7 @@ const mockProjects: Project[] = [
     live: "https://coroxengineering.ro",
   },
   {
-    id: 7,
+    id: 8,
     image: "/dkat.png",
     title: "D-KAT Tour",
     description: "Showcase website for exclusive supercar and exotic vehicle experiences.",
@@ -113,7 +125,7 @@ const mockProjects: Project[] = [
     live: "http://d-kat.com/",
   },
   {
-    id: 8,
+    id: 9,
     image: "/hazard.png",
     title: "Hazzard Studio",
     description: "Professional website for a modern barbershop in Timișoara.",
@@ -124,7 +136,7 @@ const mockProjects: Project[] = [
     live: "http://hazzardstudio.ro/",
   },
   {
-    id: 9,
+    id: 10,
     image: "/cumcomunic.png",
     title: "Cum Comunic",
     description: "Relational counseling website for the ESPERE Method.",
@@ -135,7 +147,7 @@ const mockProjects: Project[] = [
     live: "http://cumcomunic.ro/",
   },
   {
-    id: 10,
+    id: 11,
     image: "/cliniva.png",
     title: "Cliniva",
     description: "Medical center website for recovery and wellness services.",
@@ -146,7 +158,7 @@ const mockProjects: Project[] = [
     live: "http://cliniva.ro/",
   },
   {
-    id: 11,
+    id: 12,
     image: "/mechafusion.png",
     title: "Mechafusion UPT",
     description: "Official website for the robotics club of Politehnica University Timișoara.",
