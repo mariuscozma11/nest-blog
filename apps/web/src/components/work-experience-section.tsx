@@ -8,6 +8,7 @@ interface WorkExperience {
   projectUrl?: string;
   description: string;
   responsibilities: string[];
+  sectionBreak?: string;
 }
 
 const workExperiences: WorkExperience[] = [
@@ -28,7 +29,7 @@ const workExperiences: WorkExperience[] = [
   },
   {
     title: "Full-Stack Developer",
-    period: "Aug 2025 – present",
+    period: "Aug 2025 – Jan 2026",
     company: "MEDIS Conference (via Lagrange Engineering)",
     project: "MEDIS - Medical Conference App",
     projectUrl: "https://medistm.ro",
@@ -45,7 +46,7 @@ const workExperiences: WorkExperience[] = [
   },
   {
     title: "Full-Stack Developer",
-    period: "Mar 2024 – Jul 2024",
+    period: "Mar 2025 – Jul 2025",
     company: "Dot Koda Dev",
     project: "Nuvio - Salon Management App",
     projectUrl: "https://nuvio.ro",
@@ -55,6 +56,19 @@ const workExperiences: WorkExperience[] = [
       "Built booking management interface with Next.js and TailwindCSS",
       "Implemented real-time calendar with drag-and-drop scheduling",
       "Created Supabase edge functions for appointment logic and notifications",
+    ],
+  },
+  {
+    title: "Full-Stack Developer",
+    period: "Feb 2025 – present",
+    company: "Lagrange Engineering SRL",
+    description:
+      "Lagrange Engineering is a Romanian company which I have founded. It specializes in custom Web Development and as a full-stack developer I'm responsible for:",
+    responsibilities: [
+      "Design and implement user interfaces using React and Next.js, integrating APIs with a strong focus on usability and client requirements.",
+      "Design and develop web application servers and APIs using Node.js, NestJS, and both SQL and NoSQL databases.",
+      "Develop and maintain automated tests to ensure high code quality, reliability, and long-term maintainability.",
+      "Build and maintain CI/CD pipelines using GitHub Actions and Docker, deploying to AWS, Railway, and Vercel.",
     ],
   },
   {
@@ -72,25 +86,21 @@ const workExperiences: WorkExperience[] = [
     ],
   },
   {
-    title: "Full-Stack Developer",
-    period: "Mar 2025 – present",
-    company: "Lagrange Engineering SRL",
-    description:
-      "Lagrange Engineering is a Romanian company which I have founded. It specializes in custom Web Development and as a full-stack developer I'm responsible for:",
-    responsibilities: [
-      "Design and implement user interfaces using React and Next.js, integrating APIs with a strong focus on usability and client requirements.",
-      "Design and develop web application servers and APIs using Node.js, NestJS, and both SQL and NoSQL databases.",
-      "Develop and maintain automated tests to ensure high code quality, reliability, and long-term maintainability.",
-      "Build and maintain CI/CD pipelines using GitHub Actions and Docker, deploying to AWS, Railway, and Vercel.",
-    ],
-  },
-  {
     title: "Freelance Web Developer",
-    period: "Feb 2023 – Mar 2025",
+    period: "Feb 2023 – Feb 2025",
     company: "Self-Employed",
     description:
       "Worked as a freelance web developer, creating websites for small businesses and individuals. Built responsive landing pages, corporate websites, and portfolio sites using React, Next.js, and TailwindCSS. Focused on SEO optimization, performance, and clean design.",
     responsibilities: [],
+  },
+  {
+    title: "Industrial Automation Engineer",
+    period: "Sep 2022 – Sep 2025",
+    company: "TPS Industry SRL, Atlantis Project SRL",
+    description:
+      "Before transitioning into Tech, I worked as an Industrial Automation Engineer after majoring in Industrial Engineering. I held this role at TPS Industry SRL and Atlantis Project SRL, designing and implementing industrial process automation equipment and programming PLCs and industrial robots.",
+    responsibilities: [],
+    sectionBreak: "My Past Career",
   },
 ];
 
@@ -107,7 +117,15 @@ const WorkExperienceSection = () => {
         <div className="space-y-8">
           {workExperiences.map((experience, index) => (
             <div key={index}>
-
+              {experience.sectionBreak && (
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="h-px flex-1 bg-muted-foreground/30" />
+                  <span className="text-muted-foreground font-mono text-sm">
+                    {experience.sectionBreak}
+                  </span>
+                  <div className="h-px flex-1 bg-muted-foreground/30" />
+                </div>
+              )}
               <div className="border rounded-lg p-6 hover:border-primary/50 transition-colors">
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-4">
                   <div>

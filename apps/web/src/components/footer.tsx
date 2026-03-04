@@ -87,7 +87,7 @@ const Footer = () => {
       {/* Bottom bar */}
       <div className="mt-4 py-4 border-t border-dashed">
         <p className="text-center text-muted-foreground font-mono text-sm">
-          &copy; {new Date().getFullYear()} Marius Cozma. All rights reserved.
+          &copy; 2025 Marius Cozma. All rights reserved.
         </p>
       </div>
     </SectionWrapper>
