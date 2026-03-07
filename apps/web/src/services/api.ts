@@ -1,214 +1,70 @@
-import axios, { AxiosError } from "axios";
-import type { InternalAxiosRequestConfig } from "axios";
+const GHOST_API_URL = import.meta.env.VITE_GHOST_API_URL;
+const GHOST_CONTENT_API_KEY = import.meta.env.VITE_GHOST_CONTENT_API_KEY;
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
-
-// Token storage keys
-const ACCESS_TOKEN_KEY = "access_token";
-
-// Token helpers
-export const getAccessToken = (): string | null => {
-  return localStorage.getItem(ACCESS_TOKEN_KEY);
-};
-
-export const setAccessToken = (accessToken: string): void => {
-  localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
-};
-
-export const clearTokens = (): void => {
-  localStorage.removeItem(ACCESS_TOKEN_KEY);
-};
-
-// Create axios instance
-const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-// Request interceptor - attach access token
-api.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
-    const token = getAccessToken();
-    if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
-// Response interceptor - handle auth errors
-api.interceptors.response.use(
-  (response) => response,
-  async (error: AxiosError) => {
-    if (error.response?.status === 401) {
-      clearTokens();
-      // Redirect to login if not already there
-      if (window.location.pathname !== "/admin") {
-        window.location.href = "/admin";
-      }
-    }
-    return Promise.reject(error);
-  }
-);
-
-// API Types
-export interface User {
+// Ghost API Types
+export interface GhostAuthor {
   id: string;
-  email: string;
-  name: string | null;
-  role: "user" | "admin";
-  createdAt: string;
-  updatedAt: string;
+  name: string;
+  slug: string;
+  profile_image: string | null;
 }
 
-export interface LoginResponse {
-  accessToken: string;
-  user: User;
-}
-
-export interface Post {
+export interface GhostPost {
   id: string;
   title: string;
-  content: string;
   slug: string;
+  html: string;
   excerpt: string | null;
-  status: "draft" | "published" | "archived";
-  publishedAt: string | null;
-  createdAt: string;
-  updatedAt: string;
-  author: {
-    id: string;
-    email: string;
-    name: string | null;
+  custom_excerpt: string | null;
+  feature_image: string | null;
+  published_at: string;
+  created_at: string;
+  updated_at: string;
+  reading_time: number;
+  authors: GhostAuthor[];
+}
+
+export interface GhostPagination {
+  page: number;
+  limit: number;
+  pages: number;
+  total: number;
+  next: number | null;
+  prev: number | null;
+}
+
+export interface GhostPostsResponse {
+  posts: GhostPost[];
+  meta: {
+    pagination: GhostPagination;
   };
 }
 
-export interface PaginationMeta {
-  page: number;
-  limit: number;
-  totalItems: number;
-  totalPages: number;
-  hasNextPage: boolean;
-  hasPreviousPage: boolean;
+export interface GhostSinglePostResponse {
+  posts: GhostPost[];
 }
 
-export interface PaginatedResponse<T> {
-  data: T[];
-  meta: PaginationMeta;
-}
-
-export interface CreatePostDto {
-  title: string;
-  content: string;
-  excerpt?: string;
-}
-
-export interface UpdatePostDto {
-  title?: string;
-  content?: string;
-  excerpt?: string;
-}
-
-// Auth API
-export const authApi = {
-  login: async (email: string, password: string): Promise<LoginResponse> => {
-    const response = await api.post<LoginResponse>("/auth/login", {
-      email,
-      password,
-    });
-    return response.data;
+// Ghost Content API
+export const ghostApi = {
+  getPosts: async (page = 1, limit = 10): Promise<GhostPostsResponse> => {
+    const url = `${GHOST_API_URL}/ghost/api/content/posts/?key=${GHOST_CONTENT_API_KEY}&page=${page}&limit=${limit}&include=authors`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Failed to fetch posts");
+    }
+    return response.json();
   },
 
-  register: async (
-    email: string,
-    password: string,
-    name?: string
-  ): Promise<User> => {
-    const response = await api.post<User>("/auth/register", {
-      email,
-      password,
-      name,
-    });
-    return response.data;
-  },
-
-  getProfile: async (): Promise<User> => {
-    const response = await api.get<User>("/auth/me");
-    return response.data;
+  getPostBySlug: async (slug: string): Promise<GhostPost> => {
+    const url = `${GHOST_API_URL}/ghost/api/content/posts/slug/${slug}/?key=${GHOST_CONTENT_API_KEY}&include=authors`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Post not found");
+    }
+    const data: GhostSinglePostResponse = await response.json();
+    if (!data.posts || data.posts.length === 0) {
+      throw new Error("Post not found");
+    }
+    return data.posts[0];
   },
 };
-
-// Posts API
-export const postsApi = {
-  // Public endpoints
-  getPublished: async (
-    page = 1,
-    limit = 10
-  ): Promise<PaginatedResponse<Post>> => {
-    const response = await api.get<PaginatedResponse<Post>>(
-      `/posts?page=${page}&limit=${limit}`
-    );
-    return response.data;
-  },
-
-  getBySlug: async (slug: string): Promise<Post> => {
-    const response = await api.get<Post>(`/posts/slug/${slug}`);
-    return response.data;
-  },
-
-  getById: async (id: string): Promise<Post> => {
-    const response = await api.get<Post>(`/posts/${id}`);
-    return response.data;
-  },
-
-  // Authenticated endpoints
-  getMyPosts: async (
-    page = 1,
-    limit = 10
-  ): Promise<PaginatedResponse<Post>> => {
-    const response = await api.get<PaginatedResponse<Post>>(
-      `/posts/my?page=${page}&limit=${limit}`
-    );
-    return response.data;
-  },
-
-  // Admin endpoints
-  getAllPosts: async (
-    page = 1,
-    limit = 10
-  ): Promise<PaginatedResponse<Post>> => {
-    const response = await api.get<PaginatedResponse<Post>>(
-      `/posts/admin/all?page=${page}&limit=${limit}`
-    );
-    return response.data;
-  },
-
-  create: async (data: CreatePostDto): Promise<Post> => {
-    const response = await api.post<Post>("/posts", data);
-    return response.data;
-  },
-
-  update: async (id: string, data: UpdatePostDto): Promise<Post> => {
-    const response = await api.patch<Post>(`/posts/${id}`, data);
-    return response.data;
-  },
-
-  publish: async (id: string): Promise<Post> => {
-    const response = await api.patch<Post>(`/posts/${id}/publish`);
-    return response.data;
-  },
-
-  archive: async (id: string): Promise<Post> => {
-    const response = await api.patch<Post>(`/posts/${id}/archive`);
-    return response.data;
-  },
-
-  delete: async (id: string): Promise<void> => {
-    await api.delete(`/posts/${id}`);
-  },
-};
-
-export default api;

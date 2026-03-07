@@ -5,7 +5,7 @@ import SectionWrapper from "./section-wrapper";
 const Footer = () => {
   const navigationItems = [
     { label: "Home", href: "/" },
-    // { label: "Blog", href: "#" },
+    { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/contact" },
   ];
 

@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeHighlight from "rehype-highlight";
-import "highlight.js/styles/github-dark.css";
-import { postsApi, type Post } from "../services/api";
+import { ghostApi, type GhostPost } from "../services/api";
 import SectionWrapper from "../components/section-wrapper";
 import { Button } from "../components/ui/button";
 import { Calendar, User, ArrowLeft } from "lucide-react";
 
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const [post, setPost] = useState<Post | null>(null);
+  const [post, setPost] = useState<GhostPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -21,7 +17,7 @@ const BlogPostPage = () => {
 
       try {
         setLoading(true);
-        const data = await postsApi.getBySlug(slug);
+        const data = await ghostApi.getPostBySlug(slug);
         setPost(data);
         setError(null);
       } catch (err) {
@@ -74,136 +70,73 @@ const BlogPostPage = () => {
 
   return (
     <SectionWrapper>
-      <article className="min-h-screen px-4 py-16 max-w-4xl mx-auto">
+      <article className="min-h-screen py-8 px-4 max-w-5xl mx-auto">
         <Link to="/blog">
-          <Button variant="ghost" className="font-mono mb-8 -ml-4">
+          <Button variant="ghost" className="font-mono mb-4 -ml-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Blog
           </Button>
         </Link>
 
-        <header className="mb-12">
-          <h1 className="text-4xl font-mono font-bold text-foreground mb-6">
+        <header className="mb-6">
+          <h1 className="text-4xl font-mono font-bold text-foreground mb-3">
             {post.title}
           </h1>
 
           <div className="flex flex-wrap gap-4 text-sm text-muted-foreground font-mono">
             <span className="flex items-center gap-1">
               <Calendar className="h-4 w-4" />
-              {formatDate(post.publishedAt)}
+              {formatDate(post.published_at)}
             </span>
-            <span className="flex items-center gap-1">
-              <User className="h-4 w-4" />
-              {post.author.name || post.author.email}
-            </span>
+            {post.authors && post.authors.length > 0 && (
+              <span className="flex items-center gap-1">
+                <User className="h-4 w-4" />
+                {post.authors[0].name}
+              </span>
+            )}
+            {post.reading_time && (
+              <span>{post.reading_time} min read</span>
+            )}
           </div>
         </header>
 
-        {post.excerpt && (
-          <div className="border-l-4 border-primary pl-4 mb-8">
+        {post.feature_image && (
+          <img
+            src={post.feature_image}
+            alt={post.title}
+            className="w-full rounded-lg border border-dashed mb-6"
+          />
+        )}
+
+        {post.custom_excerpt && (
+          <div className="border-l-4 border-primary pl-4 mb-6">
             <p className="text-lg text-muted-foreground font-mono italic">
-              {post.excerpt}
+              {post.custom_excerpt}
             </p>
           </div>
         )}
 
-        <div className="prose prose-invert prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-dashed prose-code:before:content-none prose-code:after:content-none max-w-none">
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeHighlight]}
-            components={{
-              h1: ({ children }) => (
-                <h1 className="text-3xl font-mono font-bold text-foreground mt-8 mb-4">
-                  {children}
-                </h1>
-              ),
-              h2: ({ children }) => (
-                <h2 className="text-2xl font-mono font-semibold text-foreground mt-8 mb-4">
-                  {children}
-                </h2>
-              ),
-              h3: ({ children }) => (
-                <h3 className="text-xl font-mono font-semibold text-foreground mt-6 mb-3">
-                  {children}
-                </h3>
-              ),
-              p: ({ children }) => (
-                <p className="text-foreground leading-relaxed mb-4">
-                  {children}
-                </p>
-              ),
-              ul: ({ children }) => (
-                <ul className="list-disc list-inside mb-4 space-y-2 text-foreground">
-                  {children}
-                </ul>
-              ),
-              ol: ({ children }) => (
-                <ol className="list-decimal list-inside mb-4 space-y-2 text-foreground">
-                  {children}
-                </ol>
-              ),
-              li: ({ children }) => (
-                <li className="text-foreground">{children}</li>
-              ),
-              a: ({ href, children }) => (
-                <a
-                  href={href}
-                  className="text-primary hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {children}
-                </a>
-              ),
-              blockquote: ({ children }) => (
-                <blockquote className="border-l-4 border-primary pl-4 italic text-muted-foreground my-4">
-                  {children}
-                </blockquote>
-              ),
-              code: ({ className, children }) => {
-                const isInline = !className;
-                if (isInline) {
-                  return (
-                    <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono text-primary">
-                      {children}
-                    </code>
-                  );
-                }
-                return <code className={className}>{children}</code>;
-              },
-              pre: ({ children }) => (
-                <pre className="bg-[#0d1117] border border-dashed rounded-lg p-4 overflow-x-auto my-4 font-mono text-sm">
-                  {children}
-                </pre>
-              ),
-              hr: () => <hr className="border-dashed my-8" />,
-              table: ({ children }) => (
-                <div className="overflow-x-auto my-4">
-                  <table className="min-w-full border border-dashed">
-                    {children}
-                  </table>
-                </div>
-              ),
-              th: ({ children }) => (
-                <th className="border border-dashed px-4 py-2 bg-muted text-left font-mono font-semibold">
-                  {children}
-                </th>
-              ),
-              td: ({ children }) => (
-                <td className="border border-dashed px-4 py-2">{children}</td>
-              ),
-              img: ({ src, alt }) => (
-                <img
-                  src={src}
-                  alt={alt}
-                  className="rounded-lg border border-dashed my-4 max-w-full"
-                />
-              ),
-            }}
-          >
-            {post.content}
-          </ReactMarkdown>
-        </div>
+        <div
+          className="prose prose-invert prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-dashed prose-code:before:content-none prose-code:after:content-none max-w-none
+            [&_h1]:text-3xl [&_h1]:font-mono [&_h1]:font-bold [&_h1]:text-foreground [&_h1]:mt-8 [&_h1]:mb-4
+            [&_h2]:text-2xl [&_h2]:font-mono [&_h2]:font-semibold [&_h2]:text-foreground [&_h2]:mt-8 [&_h2]:mb-4
+            [&_h3]:text-xl [&_h3]:font-mono [&_h3]:font-semibold [&_h3]:text-foreground [&_h3]:mt-6 [&_h3]:mb-3
+            [&_p]:text-foreground [&_p]:leading-relaxed [&_p]:mb-4
+            [&_ul]:list-disc [&_ul]:list-inside [&_ul]:mb-4 [&_ul]:space-y-2 [&_ul]:text-foreground
+            [&_ol]:list-decimal [&_ol]:list-inside [&_ol]:mb-4 [&_ol]:space-y-2 [&_ol]:text-foreground
+            [&_li]:text-foreground
+            [&_a]:text-primary [&_a:hover]:underline
+            [&_blockquote]:border-l-4 [&_blockquote]:border-primary [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-muted-foreground [&_blockquote]:my-4
+            [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono [&_code]:text-primary
+            [&_pre]:bg-[#0d1117] [&_pre]:border [&_pre]:border-dashed [&_pre]:rounded-lg [&_pre]:p-4 [&_pre]:overflow-x-auto [&_pre]:my-4 [&_pre]:font-mono [&_pre]:text-sm
+            [&_pre_code]:bg-transparent [&_pre_code]:p-0
+            [&_hr]:border-dashed [&_hr]:my-8
+            [&_table]:min-w-full [&_table]:border [&_table]:border-dashed
+            [&_th]:border [&_th]:border-dashed [&_th]:px-4 [&_th]:py-2 [&_th]:bg-muted [&_th]:text-left [&_th]:font-mono [&_th]:font-semibold
+            [&_td]:border [&_td]:border-dashed [&_td]:px-4 [&_td]:py-2
+            [&_img]:rounded-lg [&_img]:border [&_img]:border-dashed [&_img]:my-4 [&_img]:max-w-full"
+          dangerouslySetInnerHTML={{ __html: post.html }}
+        />
 
         <footer className="mt-16 pt-8 border-t border-dashed">
           <Link to="/blog">
