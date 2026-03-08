@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "./ui/button";
-import { ModeToggle } from "./mode-toggle";
-import { MobileMenu } from "./mobile-menu";
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from './ui/button';
+import { ModeToggle } from './mode-toggle';
+import { MobileMenu } from './mobile-menu';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -12,22 +12,22 @@ const Navbar = () => {
       setIsScrolled(window.scrollY > 1);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navigationItems = [
     {
-      label: "Home",
-      href: "/",
+      label: 'Home',
+      href: '/',
     },
     {
-      label: "Blog",
-      href: "/blog",
+      label: 'Blog',
+      href: '/blog',
     },
     {
-      label: "Contact",
-      href: "/contact",
+      label: 'Contact',
+      href: '/contact',
     },
   ];
   return (
@@ -36,14 +36,14 @@ const Navbar = () => {
         className={`max-w-7xl h-16 mx-auto transition-all duration-500 ease-out px-4 border-x border-dashed
         ${
           isScrolled
-            ? "py-2 h-auto backdrop-blur-sm shadow-md"
-            : "py-4 shadow-none"
+            ? 'py-2 h-auto backdrop-blur-sm shadow-md'
+            : 'py-4 shadow-none'
         }`}
       >
         <div className="flex items-center justify-between mx-auto">
           {/* Logo - Left */}
           <Link to="/" className="flex items-center space-x-2 cursor-pointer">
-            <div className="text-xl  tracking-tight font-mono">
+            <div className="text-xl  tracking-tight font-mono hover:text-emerald-600 transition-colors">
               Marius Cozma
             </div>
           </Link>
@@ -52,7 +52,7 @@ const Navbar = () => {
             <ModeToggle />
             {navigationItems.map((item) => (
               <div key={item.label}>
-                {item.href.startsWith("/") ? (
+                {item.href.startsWith('/') ? (
                   <Link to={item.href}>
                     <Button
                       variant="ghost"
